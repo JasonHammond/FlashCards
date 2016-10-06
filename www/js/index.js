@@ -36,7 +36,7 @@ $(document).on('pageinit', '#frontpage', function() {
     
         card = (cards[Math.floor(Math.random() * cards.length)]);
     };
-});    
+//});    
 
 $('#frontpage').ready(function() {
     $('#qa').bind('tap', function() {        
@@ -51,4 +51,5 @@ $('#frontpage').ready(function() {
             cardToggle += 1;
         }
     });
+});
 });
