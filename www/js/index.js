@@ -26,14 +26,14 @@ var app = {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
+        document.addEventListener('pageinit', this.onPageInit, false);
     },
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
+    onPageInit: function() {
+        app.receivedEvent('pageinit');
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -79,12 +79,16 @@ var app = {
             return function() {return toggle += 1;}
         })();
          
-        $(".flashCard").tap(function() {        
+        $(".flashCard").on("tap", function() {        
             if ((cardToggle() % 2) === 1) {
-                document.getElementById('qa').innerHTML = card.question;
+                $('#qa li').remove();
+                $('#qa').append('<li>' + card.question + '</li>');
+                $('#qa').listview('refresh');
             }
             else {
-                document.getElementById('qa').innerHTML = card.answer;
+                $('#qa li').remove();
+                $('#qa').append('<li>' + card.answer + '</li>');
+                $('#qa').listview('refresh');
                 card = cardDraw();
             }
         });
