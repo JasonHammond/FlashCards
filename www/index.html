@@ -28,6 +28,10 @@
 
     <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css" />
     <link rel="stylesheet" href="css/index.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/index.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
     
     <title>FlashCards</title>
 </head>
@@ -37,15 +41,12 @@
         <div class="flashCard w3-card w3-center">
             <h1 id='qa' class="w3-container w3-center">New Card</h1>
         </div><!-- /flashCard -->
+
+        <script type="text/javascript">
+            app.initialize();
+        </script>
     </div><!-- /app -->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/index.js"></script>
-    <script type="text/javascript" src="cordova.js"></script>
-
-    <script type="text/javascript">
-        app.initialize();
-    </script>
 </body>
 
 </html>
