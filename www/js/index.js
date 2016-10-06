@@ -16,81 +16,52 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('pageinit', this.onPageInit, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    onPageInit: function() {
-        app.receivedEvent('pageinit');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        //    var inFile = 'addition.json';
-        //    
-        //    var cards = $.getJSON(inFile, function(data) {
-        //        console.log(data);
-        //        
-        //         = data.items.map(function (item) {
-        //            return item.key + ': ' + item.value;
-        //        });
-        //    });
-        var cards = [
-            {question:"2+2=?", answer:"4"},
-            {question:"3+9=?", answer:"12"},
-            {question:"2+7=?", answer:"9"},
-            {question:"1+4=?", answer:"5"},
-            {question:"5+8=?", answer:"13"},
-            {question:"6+1=?", answer:"7"},
-            {question:"6+5=?", answer:"11"},
-            {question:"4+8=?", answer:"12"},
-            {question:"3+0=?", answer:"3"},
-            {question:"0+0=?", answer:"0"},
-            {question:"3-2=?", answer:"1"},
-            {question:"5-2=?", answer:"3"},
-            {question:"6-1=?", answer:"5"},
-            {question:"8-6=?", answer:"2"},
-            {question:"13-5=?", answer:"8"},
-            {question:"8-1=?", answer:"7"},
-            {question:"12-3=?", answer:"9"},
-            {question:"17-5=?", answer:"12"},
-            {question:"3-0=?", answer:"3"},
-            {question:"0-0=?", answer:"0"} ];
-            
-        var cardDraw = (function() {
-            return function() {return (cards[Math.floor(Math.random() * cards.length)]);}
-        })();
+var cardToggle;
+var card;
+var cards;
+
+$('#frontpage').bind('pageshow', function(event) {
+    cardToggle = 0;
+    cardDraw();
+});
+
+function cardDraw() {
+    console.log('drawing card...');
+    cards = [
+        {question:"2+2=?", answer:"4"},
+        {question:"3+9=?", answer:"12"},
+        {question:"2+7=?", answer:"9"},
+        {question:"1+4=?", answer:"5"},
+        {question:"5+8=?", answer:"13"},
+        {question:"6+1=?", answer:"7"},
+        {question:"6+5=?", answer:"11"},
+        {question:"4+8=?", answer:"12"},
+        {question:"3+0=?", answer:"3"},
+        {question:"0+0=?", answer:"0"},
+        {question:"3-2=?", answer:"1"},
+        {question:"5-2=?", answer:"3"},
+        {question:"6-1=?", answer:"5"},
+        {question:"8-6=?", answer:"2"},
+        {question:"13-5=?", answer:"8"},
+        {question:"8-1=?", answer:"7"},
+        {question:"12-3=?", answer:"9"},
+        {question:"17-5=?", answer:"12"},
+        {question:"3-0=?", answer:"3"},
+        {question:"0-0=?", answer:"0"} ];
+
+    card = (cards[Math.floor(Math.random() * cards.length)]);
+};
     
-        var card = cardDraw();
-    
-        var cardToggle = (function() {
-            var toggle = 0;
-            return function() {return toggle += 1;}
-        })();
-         
-        $(".flashCard").on("tap", function() {        
-            if ((cardToggle() % 2) === 1) {
-                $('#qa li').remove();
-                $('#qa').append('<li>' + card.question + '</li>');
-                $('#qa').listview('refresh');
-            }
-            else {
-                $('#qa li').remove();
-                $('#qa').append('<li>' + card.answer + '</li>');
-                $('#qa').listview('refresh');
-                card = cardDraw();
-            }
-        });
-    }
-};      
+$('#frontpage').ready(function() {
+    $('#qa').bind('tap', function() {        
+        if ((cardToggle % 2) === 0) {
+            $(this).html(card.question);
+            cardToggle += 1;
+        }
+        else {
+            $(this).html(card.answer);
+            cardDraw();
+            cardToggle += 1;
+        }
+    });
+});
