@@ -79,7 +79,7 @@ var app = {
             return function() {return toggle += 1;}
         })();
          
-        $(".flashCard").click(function() {        
+        $(".flashCard").tap(function() {        
             if ((cardToggle() % 2) === 1) {
                 document.getElementById('qa').innerHTML = card.question;
             }
