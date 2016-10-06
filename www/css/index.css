@@ -61,11 +61,12 @@ div {
 }
 
 h1 {
-    display:table-cell;
-    vertical-align:middle;
-    text-align:center;
+
 }
 
 #qa {
+    display:table-cell;
+    vertical-align:middle;
+    text-align:center;
     font-size:1000%;
 }
