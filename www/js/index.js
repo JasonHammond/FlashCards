@@ -1,17 +1,23 @@
-$(document).on('pageinit', '#frontpage', function() {
-    console.log('device ready');
+var $j = jQuery.noConflict();
 
+function onLoad() {
+    console.log("here we go...");
+    document.addEventListener("deviceready", onDeviceReady, false);
+}
+
+function onDeviceReady() {    
     var cardToggle;
     var card;
     var cards;
     
-    $('#frontpage').bind('pageload pageshow', function(event) {
-        cardToggle = 0;
-        cardDraw();
-    });
+    console.log("device ready");
+    try {drawCard; }
+    catch(err) {console.log("card not drawn... =("); }
     
-    function cardDraw() {
-        console.log('drawing card...');
+    $j("#qa").bind("tap", displayCard);
+
+
+    function drawCard() {
         cards = [
             {question:"2+2=?", answer:"4"},
             {question:"3+9=?", answer:"12"},
@@ -33,23 +39,25 @@ $(document).on('pageinit', '#frontpage', function() {
             {question:"17-5=?", answer:"12"},
             {question:"3-0=?", answer:"3"},
             {question:"0-0=?", answer:"0"} ];
-    
-        card = (cards[Math.floor(Math.random() * cards.length)]);
-    };
-//});    
 
-$('#frontpage').ready(function() {
-    $('#qa').bind('tap', function() {        
-        console.log('tap bind OK'); 
+        card = (cards[Math.floor(Math.random() * cards.length)]);
+        console.log("card chosen.");
+        cardToggle = 0;
+    }    
+    
+    function displayCard(event) {
+        console.log('click');
         if ((cardToggle % 2) === 0) {
-            $(this).html(card.question);
+            $j(this).html(card.question);
             cardToggle += 1;
         }
         else {
-            $(this).html(card.answer);
-            cardDraw();
+            $j(this).html(card.answer);
+            drawCard;
             cardToggle += 1;
         }
-    });
-});
-});
+    }
+    
+    console.log("All done!");
+}
+
